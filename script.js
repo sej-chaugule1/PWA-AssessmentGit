@@ -9,4 +9,21 @@ function validateLogin() {
     
     errorMessage.style.display = "none";
     emptyMessage.style.display = "none";
+
+errorMessage.style.display = "none";
+emptyMessage.style.display = "none";
+
+if (enteredUsername === "" || enteredPassword === "") {
+    emptyMessage.style.display = "block";
+    return false; 
+}
+
+if (enteredUsername === correctUsername && enteredPassword === correctPassword) {
+    window.location.href = "Penny-wise.html";
+    return false; 
+} else {
+    errorMessage.style.display = "block"; 
+    return false; 
+}
+
 }

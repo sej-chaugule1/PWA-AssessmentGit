@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penny-wise</title>
+    <link rel="stylesheet" href="style2.css">
+    <script src="script2.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Jua&display=swap" rel="stylesheet">
+</head>
+<div class="title">
+    <h1>Penny-wise</h1>
+</div>
+<body>
+    <nav class = "navbar">
+        <ul>
+            <li class="home"><a href="Penny-wise.html">Home</a></li>
+            <li><a href="enteries.html">Past enteries</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="weeklyspending">
+            <p>Total Weekly Spending</p>
+            <h1 id="total-spending">$0.00</h1>
+        </div>
+
+        <div class="createbudget">
+            <button onclick="createbudget()">Create Weekly Budget +</button>
+        </div>
+
+        <div class="expenselist">
+            <div class="dateselector">
+                <label for="dateInput">Select a Date:</label>
+                <input type="date" id="dateInput" class="date-input" onchange="updateDate()" />
+            </div>
+            <div class="expenseitem">
+                <select class="expensecategory">
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="Groceries">Groceries</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Healthcare">Healthcare</option>
+                </select>
+                <input type="number" class="expense-amount" placeholder="$0.00" onchange="total()" />
+            </div>
+            <div class="expenseitem">
+                <select class="expensecategory">
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="Groceries">Groceries</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Healthcare">Healthcare</option>
+                </select>
+                <input type="number" class="expense-amount" placeholder="$0.00" onchange="total()" />
+            </div>
+            <div class="expenseitem">
+                <select class="expensecategory">
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="Groceries">Groceries</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Healthcare">Healthcare</option>
+                </select>
+                <input type="number" class="expense-amount" placeholder="$0.00" onchange="total()" />
+            </div>
+            <div class="expenseitem">
+                <select class="expensecategory">
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="Groceries">Groceries</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Healthcare">Healthcare</option>
+                </select>
+                <input type="number" class="expense-amount" placeholder="$0.00" onchange="total()" />
+            </div>
+        </div>
+        <div class="add-expense">
+            <button onclick="addExpenseItem()">Add Expense +</button>
+        </div>
+    </div>
+</body>
+</html>
