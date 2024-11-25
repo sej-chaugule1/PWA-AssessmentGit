@@ -20,14 +20,19 @@
     </nav>
 
     <div class="container">
-        <div class="weeklyspending">
-            <p>Total Weekly Spending</p>
+        <div class="spending">
+            <p>Total Spending</p>
             <h1 id="total-spending">$0.00</h1>
         </div>
 
         <div class="createbudget">
-            <button onclick="createbudget()">Create Weekly Budget +</button>
-        </div>
+            <button id="create-budget-btn" onclick="createBudget()">Create budget +</button>
+            <div id="budget-section" style="display: none;">
+                <label for="budgetInput">Enter budget:</label>
+                <input type="number" id="budgetInput" placeholder="$0.00" onchange="updateBudget()" />
+                <p>Budget: <span id="display-budget">$0.00</span></p>
+            </div>
+        </div>        
 
         <div class="expenselist">
             <div class="dateselector">
@@ -35,7 +40,7 @@
                 <input type="date" id="dateInput" class="date-input" onchange="updateDate()" />
             </div>
             <div class="expenseitem">
-                <select class="expensecategory">
+                <select class="expensecategory" onchange="enableAmount(this)">
                     <option value="" disabled selected>Select Category</option>
                     <option value="Groceries">Groceries</option>
                     <option value="Transportation">Transportation</option>
@@ -43,10 +48,10 @@
                     <option value="Utilities">Utilities</option>
                     <option value="Healthcare">Healthcare</option>
                 </select>
-                <input type="number" class="expense-amount" placeholder="$0.00" onchange="total()" />
+                <input type="number" class="expense-amount" placeholder="$0.00" disabled onchange="total()" />
             </div>
             <div class="expenseitem">
-                <select class="expensecategory">
+                <select class="expensecategory" onchange="enableAmount(this)">
                     <option value="" disabled selected>Select Category</option>
                     <option value="Groceries">Groceries</option>
                     <option value="Transportation">Transportation</option>
@@ -54,10 +59,10 @@
                     <option value="Utilities">Utilities</option>
                     <option value="Healthcare">Healthcare</option>
                 </select>
-                <input type="number" class="expense-amount" placeholder="$0.00" onchange="total()" />
+                <input type="number" class="expense-amount" placeholder="$0.00" disabled onchange="total()" />
             </div>
             <div class="expenseitem">
-                <select class="expensecategory">
+                <select class="expensecategory" onchange="enableAmount(this)">
                     <option value="" disabled selected>Select Category</option>
                     <option value="Groceries">Groceries</option>
                     <option value="Transportation">Transportation</option>
@@ -65,10 +70,10 @@
                     <option value="Utilities">Utilities</option>
                     <option value="Healthcare">Healthcare</option>
                 </select>
-                <input type="number" class="expense-amount" placeholder="$0.00" onchange="total()" />
+                <input type="number" class="expense-amount" placeholder="$0.00" disabled onchange="total()" />
             </div>
             <div class="expenseitem">
-                <select class="expensecategory">
+                <select class="expensecategory" onchange="enableAmount(this)">
                     <option value="" disabled selected>Select Category</option>
                     <option value="Groceries">Groceries</option>
                     <option value="Transportation">Transportation</option>
@@ -76,11 +81,11 @@
                     <option value="Utilities">Utilities</option>
                     <option value="Healthcare">Healthcare</option>
                 </select>
-                <input type="number" class="expense-amount" placeholder="$0.00" onchange="total()" />
+                <input type="number" class="expense-amount" placeholder="$0.00" disabled onchange="total()" />
             </div>
         </div>
-        <div class="add-expense">
-            <button onclick="addExpenseItem()">Add Expense +</button>
+        <div class="submit">
+            <button onclick="addlog()">Submit</button>
         </div>
     </div>
 </body>

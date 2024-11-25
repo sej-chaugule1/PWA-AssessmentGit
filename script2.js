@@ -15,8 +15,29 @@ function total() {
 
 let budget = 0;
 
-// Function to update the budget based on user input
-function updateBudget() {
-    budget = parseFloat(document.getElementById('budget').value) || 0;
-    checkBudgetWarning();
+function enableAmount(selectElement) {
+    const amountInput = selectElement.closest('.expenseitem').querySelector('.expense-amount');
+    
+    if (selectElement.value) {
+        amountInput.disabled = false;
+    } else {
+        amountInput.disabled = true;
+    }
 }
+
+function createBudget() {
+    const budgetSection = document.getElementById('budget-section');
+    const createButton = document.getElementById('create-budget-btn');
+    budgetSection.style.display = 'block'; 
+    createButton.style.display = 'none'; 
+}
+
+function updateBudget() {
+    const budgetInput = document.getElementById('budgetInput');
+    const displayBudget = document.getElementById('display-budget');
+    displayBudget.textContent = `$${parseFloat(budgetInput.value).toFixed(2)}`;
+
+    budgetInput.style.display = 'none';
+    budgetInput.previousElementSibling.style.display = 'none'; 
+}
+
