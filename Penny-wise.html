@@ -15,7 +15,7 @@
     <nav class = "navbar">
         <ul>
             <li class="home"><a href="Penny-wise.html">Home</a></li>
-            <li><a href="enteries.html">Past enteries</a></li>
+            <li><a href="entries.html">Past entries</a></li>
         </ul>
     </nav>
 
@@ -30,7 +30,7 @@
             <div id="budget-section" style="display: none;">
                 <label for="budgetInput">Enter budget:</label>
                 <input type="number" id="budgetInput" placeholder="$0.00" onchange="updateBudget()" />
-                <p>Budget: <span id="display-budget">$0.00</span></p>
+                <p style="font-size: 24px;">Budget:<span id="display-budget" style="font-size: 24px;"> $0.00</span></p>
             </div>
         </div>        
 
@@ -85,7 +85,7 @@
             </div>
         </div>
         <div class="submit">
-            <button onclick="addlog()">Submit</button>
+            <button onclick="addlog(); window.location.href='entries.html';">Submit</button>
         </div>
     </div>
 </body>

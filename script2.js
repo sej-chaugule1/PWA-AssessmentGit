@@ -41,3 +41,57 @@ function updateBudget() {
     budgetInput.previousElementSibling.style.display = 'none'; 
 }
 
+function addlog() {
+    // Get input values
+    const dateInput = document.getElementById("dateInput").value;
+    const budgetInput = parseFloat(document.getElementById("budgetInput").value || 0);
+    const expenseItems = document.querySelectorAll(".expenseitem");
+    
+    // Prepare log data
+    let totalSpending = 0;
+    let expensesDetails = [];
+    
+    expenseItems.forEach(item => {
+        const category = item.querySelector(".expensecategory").value;
+        const amount = parseFloat(item.querySelector(".expense-amount").value || 0);
+        if (category && amount) {
+            expensesDetails.push(`${category}: $${amount.toFixed(2)}`);
+            totalSpending += amount;
+        }
+    });
+
+    if (!dateInput) {
+        alert("Please select a date before submitting.");
+        return;
+    }
+
+    if (expensesDetails.length === 0) {
+        alert("Please enter at least one expense.");
+        return;
+    }
+
+    // Create log object
+    const log = {
+        date: dateInput,
+        budget: budgetInput,
+        totalSpending: totalSpending,
+        expensesDetails: expensesDetails
+    };
+
+    // Store the log in Local Storage
+    let logs = JSON.parse(localStorage.getItem("logs")) || [];
+    logs.push(log);
+    localStorage.setItem("logs", JSON.stringify(logs));
+
+    // Clear form inputs
+    document.getElementById("budgetInput").value = "";
+    document.getElementById("dateInput").value = "";
+    expenseItems.forEach(item => {
+        item.querySelector(".expensecategory").selectedIndex = 0;
+        item.querySelector(".expense-amount").value = "";
+        item.querySelector(".expense-amount").disabled = true;
+    });
+
+    alert("Log successfully added!");
+}
+

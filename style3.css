@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f8d7da;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.title {
+    font-size: 21px;
+    color: rgb(254, 113, 113);
+    position: fixed;
+    top: 0;
+}
+
+.navbar {
+    top: 0;
+    margin-top: 55px;
+    position: fixed;
+    width: 100%;
+}
+
+.navbar ul {
+    list-style-type: none;
+    background-color: rgb(255, 255, 255);
+    padding: 12px;
+    margin: 0px;
+    top: 0;
+    overflow: hidden;
+    font-size: 20px;
+}
+
+.navbar a{
+    color: rgb(255, 134, 154);
+    text-decoration: none;
+    padding: 100px 270px;
+    text-align: center;
+}
+
+.navbar a:hover{
+    color: rgb(255, 205, 213);
+    width: 100%;
+}
+
+.navbar li{
+    float: left;
+}
+ 
+li:last-child {
+    border-right: none;
+}
+
+.entries-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px;
+    gap: 20px;
+}
+
+.log {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    position: relative;
+}
+
+.log p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.log .delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #FF6B6B;
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.log .delete-btn:hover {
+    background-color: #FF3B3B;
+}
+
+.log .budget-info {
+    font-weight: bold;
+    color: #FF6B6B;
+    margin-top: 10px;
+}
