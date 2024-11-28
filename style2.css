@@ -89,10 +89,13 @@ body {
     border-radius: 14px;
 }
 
-.expenseitem {
+.expenseitem1, 
+.expenseitem2,
+.expenseitem3,
+.expenseitem4 {
     display: flex;
     justify-content: space-between;
-    padding: 10px 5px;
+    padding: 7px 5px;
     border-bottom: 1px solid #d2d1d1;
     font-family: "Itim", cursive;
 }
@@ -175,5 +178,6 @@ li:last-child {
     border-radius: 3px;
     font-family: "Itim", cursive;
     font-size: 17px;
-    margin-top: 9px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
