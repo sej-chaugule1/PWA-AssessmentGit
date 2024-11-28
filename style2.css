@@ -41,31 +41,6 @@ body {
     margin-top: 10px;
 }
 
-.budget-display {
-    font-size: 18px;
-    color: #333;
-    margin-top: 10px;
-}
-
-.createbudget {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-    font-family: "Itim", cursive;
-}
-
-.createbudget button {
-    background-color: #9e9e9e;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: "Itim", cursive;
-    font-size: 17px;
-}
-
 .dateselector {
     text-align: center;
     border: 18px 20px white;

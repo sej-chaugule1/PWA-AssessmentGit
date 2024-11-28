@@ -67,3 +67,12 @@ li:last-child {
     gap: 20px;
 }
 
+.log {
+    background-color: white;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.log .date {
+    margin-bottom: 5px;
+}

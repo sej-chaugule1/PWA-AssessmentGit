@@ -25,15 +25,6 @@
             <h1 id="total-spending">$0.00</h1>
         </div>
 
-        <div class="createbudget">
-            <button id="create-budget-btn" onclick="createBudget()">Create budget +</button>
-            <div id="budget-section" style="display: none;">
-                <label for="budgetInput">Enter budget:</label>
-                <input type="number" id="budgetInput" placeholder="$0.00" onchange="updateBudget()" />
-                <p style="font-size: 24px;">Budget:<span id="display-budget" style="font-size: 24px;"> $0.00</span></p>
-            </div>
-        </div>        
-
         <form id="expenseForm" class="expenselist" action="submitExpenses.php" method="POST" onsubmit="storeData(event)">
             <div class="dateselector">
                 <label for="dateInput">Select a Date:</label>

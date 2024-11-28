@@ -12,8 +12,6 @@ function total() {
     document.getElementById('total-spending').innerText = `$${total.toFixed(2)}`;
 }
 
-let budget = 0;
-
 function enableAmount(selectElement) {
     // Get the corresponding expense amount input field
     const expenseInput = selectElement.parentElement.querySelector('.expense-amount');
@@ -27,22 +25,6 @@ function enableAmount(selectElement) {
     }
 }
 // This must stay
-
-function createBudget() {
-    const budgetSection = document.getElementById('budget-section');
-    const createButton = document.getElementById('create-budget-btn');
-    budgetSection.style.display = 'block'; 
-    createButton.style.display = 'none'; 
-}
-
-function updateBudget() {
-    const budgetInput = document.getElementById('budgetInput');
-    const displayBudget = document.getElementById('display-budget');
-    displayBudget.textContent = `$${parseFloat(budgetInput.value).toFixed(2)}`;
-
-    budgetInput.style.display = 'none';
-    budgetInput.previousElementSibling.style.display = 'none'; 
-}
 
 function enableAmount(selectElement) {
     const expenseInput = selectElement.parentElement.querySelector('.expense-amount');
@@ -90,33 +72,82 @@ function SubmitLog() {
     window.location.href = 'entries.html';
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const logContainer = document.getElementById('log-container');
     const logs = JSON.parse(localStorage.getItem('logs')) || [];
 
-    if (logs.length === 0) {
-        logContainer.innerHTML = '<p>No entries found.</p>';
-        return;
-    }
+    // Clear the container before rendering
+    logContainer.innerHTML = '';
 
-    logs.forEach((log, index) => {
-        const logDiv = document.createElement('div');
-        logDiv.classList.add('log-entry');
-        logDiv.innerHTML = `
-            <div>
-                <h2>${log.date}</h2>
-                <p>Category: ${log.category}</p>
-                <p>Amount: $${log.amount}</p>
-            </div>
-            <button onclick="deleteLog(${index})">Delete</button>
-        `;
-        logContainer.appendChild(logDiv);
-    });
+    if (logs.length === 0) {
+        // Display the "No entries made" message
+        const noEntriesMessage = document.createElement('div');
+        noEntriesMessage.classList.add('no-entries');
+        noEntriesMessage.innerHTML = `<h2>No entries made</h2>`;
+        logContainer.appendChild(noEntriesMessage);
+    } else {
+        // Group logs by date
+        const groupedLogs = logs.reduce((acc, log) => {
+            if (!acc[log.date]) {
+                acc[log.date] = [];
+            }
+            acc[log.date].push(log);
+            return acc;
+        }, {});
+
+        // Iterate through each date's logs
+        for (const date in groupedLogs) {
+            const dateLogs = groupedLogs[date];
+            const totalSpending = dateLogs.reduce((sum, log) => sum + parseFloat(log.amount), 0);
+
+            // Create a container for the date
+            const dateContainer = document.createElement('div');
+            dateContainer.classList.add('date-container');
+            dateContainer.innerHTML = `<h2>Date: ${date}</h2>`;
+
+            // Display total spending for the date
+            const totalDiv = document.createElement('div');
+            totalDiv.classList.add('total-spending');
+            totalDiv.innerHTML = `<p>Total Spending: $${totalSpending.toFixed(2)}</p>`;
+            dateContainer.appendChild(totalDiv);
+
+            // Display each log for the date
+            dateLogs.forEach((log, index) => {
+                const logDiv = document.createElement('div');
+                logDiv.classList.add('log-entry');
+                logDiv.innerHTML = `
+                    <div class="log">
+                        <p>Category: ${log.category}</p>
+                        <p>Amount: $${parseFloat(log.amount).toFixed(2)}</p>
+                        <button onclick="deleteLog(${index}, '${log.date}')">Delete</button>
+                    </div>
+                `;
+                dateContainer.appendChild(logDiv);
+            });
+
+            logContainer.appendChild(dateContainer);
+        }
+    }
 });
 
-function deleteLog(index) {
+function addLog(category, amount, date) {
+    const logs = JSON.parse(localStorage.getItem('logs')) || [];
+    localStorage.setItem('logs', JSON.stringify(logs));
+    window.location.reload(); // Refresh the page to update the logs
+}
+
+function deleteLog(index, date) {
     const logs = JSON.parse(localStorage.getItem('logs')) || [];
     logs.splice(index, 1); // Remove the log at the specified index
     localStorage.setItem('logs', JSON.stringify(logs)); // Save the updated logs
     window.location.reload(); // Refresh the page to update the log list
+}
+
+// Example form submission handler
+function handleFormSubmit(event) {
+    event.preventDefault();
+    const category = document.getElementById('category').value;
+    const amount = parseFloat(document.getElementById('amount').value);
+    const date = document.getElementById('date').value;
+    addLog(category, amount, date);
 }
