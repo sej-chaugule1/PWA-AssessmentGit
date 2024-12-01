@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <p>Category: ${log.category}</p>
                         <p>Amount: $${parseFloat(log.amount).toFixed(2)}</p>
                         <button onclick="deleteLog(${index}, '${log.date}')">Delete</button>
+                        <button onclick="editLog(${index}, '${log.date}')">Edit</button>
                     </div>
                 `;
                 dateContainer.appendChild(logDiv);
@@ -130,10 +131,61 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+function editLog(index, date) {
+    const logs = JSON.parse(localStorage.getItem('logs')) || [];
+    const logToEdit = logs.find((log, i) => i === index && log.date === date);
+
+    // Replace the log entry with an editable form
+    const logContainer = document.querySelectorAll('.log-entry')[index];
+    logContainer.innerHTML = `
+        <form id="editLogForm" onsubmit="saveLog(event, ${index}, '${date}')" style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="editCategory">Category:</label>
+            <select id="editCategory" required>
+                <option value="Groceries" ${logToEdit.category === 'Groceries' ? 'selected' : ''}>Groceries</option>
+                <option value="Transportation" ${logToEdit.category === 'Transportation' ? 'selected' : ''}>Transportation</option>
+                <option value="Entertainment" ${logToEdit.category === 'Entertainment' ? 'selected' : ''}>Entertainment</option>
+                <option value="Utilities" ${logToEdit.category === 'Utilities' ? 'selected' : ''}>Utilities</option>
+                <option value="Healthcare" ${logToEdit.category === 'Healthcare' ? 'selected' : ''}>Healthcare</option>
+            </select>
+            <label for="editAmount">Amount:</label>
+            <input type="number" id="editAmount" value="${logToEdit.amount}" required />
+            <label for="editDate">Date:</label>
+            <input type="date" id="editDate" value="${logToEdit.date}" required />
+            <div style="display: flex; gap: 10px;">
+                <button type="submit">Save</button>
+                <button type="button" onclick="cancelEdit(${index}, '${date}')">Cancel</button>
+            </div>
+        </form>
+    `;
+}
+
+function saveLog(event, index, originalDate) {
+    event.preventDefault();
+
+    const logs = JSON.parse(localStorage.getItem('logs')) || [];
+    const editCategory = document.getElementById('editCategory').value;
+    const editAmount = parseFloat(document.getElementById('editAmount').value).toFixed(2);
+    const editDate = document.getElementById('editDate').value;
+
+    // Update the log with new values
+    logs[index] = { date: editDate, category: editCategory, amount: editAmount };
+
+    // Save the updated logs to localStorage
+    localStorage.setItem('logs', JSON.stringify(logs));
+
 function addLog(category, amount, date) {
     const logs = JSON.parse(localStorage.getItem('logs')) || [];
     localStorage.setItem('logs', JSON.stringify(logs));
     window.location.reload(); // Refresh the page to update the logs
+}
+
+ // Refresh the page to update the logs
+ window.location.reload();
+}
+
+function cancelEdit(index, originalDate) {
+    // Reload the logs to cancel the edit
+    window.location.reload();
 }
 
 function deleteLog(index, date) {

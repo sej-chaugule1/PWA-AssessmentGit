@@ -76,3 +76,8 @@ li:last-child {
 .log .date {
     margin-bottom: 5px;
 }
+
+.editLogForm {
+    background-color: white;
+    
+}
