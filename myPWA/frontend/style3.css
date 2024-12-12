@@ -70,3 +70,11 @@ li:last-child {
 .log-entry button {
     font-family: "Itim", cursive;
 }
+
+#logsContainer {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping if needed */
+    gap: 10px; /* Add spacing between log entries */
+    align-items: flex-start; /* Align items to the top */
+    justify-content: flex-start; /* Align items to the left */
+}
