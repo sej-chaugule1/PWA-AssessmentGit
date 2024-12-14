@@ -9,150 +9,114 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     font-family: "Itim", cursive;
     font-weight: 400;
     font-style: normal;
+    overflow-y: auto;
+    min-height: 100vh; /* Allow content to grow beyond the viewport */
 }
 
+/* Center the form */
 .container {
-    width: 350px;
-    text-align: center;
-    align-items: center;
-    margin: 0 auto;
-    display: block;
-    margin-top: 100px;
-}
-
-.spending {
-    background-color: #f28b82;
-    color: #333;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 30px;
-}
-
-.spending p {
-    font-size: 18px;
-}
-
-.spending h1 {
-    font-size: 36px;
-    margin-top: 10px;
-}
-
-.dateselector {
-    text-align: center;
-    border: 18px 20px white;
-    background-color: white;
-    border-radius: 14px 14px 0 0;
-    margin-left: -10px;
-    padding: 0;
-    width: 350px;
-}
-
-.date-input {
-    padding: 15px;
-    font-size: 1em;
-    border: 1px solid #ffffff;
-    border-radius: 15px;
-}
-
-.expenselist {
-    background-color: #d2d1d1;
-    padding: 0 10px 0 10px;
-    border-radius: 14px;
-}
-
-.expenseitem1, 
-.expenseitem2,
-.expenseitem3,
-.expenseitem4 {
     display: flex;
-    justify-content: space-between;
-    padding: 7px 5px;
-    border-bottom: 1px solid #d2d1d1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
     font-family: "Itim", cursive;
 }
 
-.expenseitem:last-child {
-    border-bottom: none;
-}
-
-.expensecategory {
-    font-size: 16px;
-    border: 1px solid #d2d1d1;
-    border-radius: 5px;
-    background-color: #d2d1d1;
-    color: #333;
+/* Style the form */
+.expenselist {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 15px 20px; /* Increase spacing between labels and inputs */
+    background-color: #f0f0f0;
+    padding: 40px; /* Increase padding for a larger form box */
+    border-radius: 15px; /* Larger border radius for rounded corners */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly deeper shadow */
+    width: 400px; /* Increase form width */
+    max-width: 100%; /* Ensure responsiveness */
     font-family: "Itim", cursive;
 }
 
-.expense-amount {
-    width: 90px;
-    padding: 5px;
-    font-size: 14px;
+/* Align labels and inputs */
+.expenselist label {
     text-align: right;
+    font-weight: bold;
+    font-size: 16px; /* Slightly larger text for labels */
+    align-self: center;
+    font-family: "Itim", cursive;
+}
+
+/* Style the input fields and dropdown */
+.expenselist input,
+.expenselist select {
+    padding: 10px; /* Add more padding to make inputs feel larger */
+    font-size: 16px; /* Slightly larger font size for inputs */
     border: 1px solid #ccc;
     border-radius: 5px;
-}
-
-.title {
-    font-size: 21px;
-    color: rgb(254, 113, 113);
-    position: fixed;
-    top: 0;
-}
-
-.add-expense {
-    margin-top: 5px;
-}
-
-.navbar {
-    top: 0;
-    margin-top: 55px;
-    position: fixed;
     width: 100%;
-}
-
-.navbar ul {
-    list-style-type: none;
-    background-color: rgb(255, 255, 255);
-    padding: 12px;
-    margin: 0px;
-    top: 0;
-    overflow: hidden;
-    font-size: 20px;
-}
-
-.navbar a{
-    color: rgb(255, 134, 154);
-    text-decoration: none;
-    padding: 100px 270px;
-    text-align: center;
-}
-
-.navbar a:hover{
-    color: rgb(255, 205, 213);
-    width: 100%;
-}
-
-.navbar li{
-    float: left;
-}
- 
-li:last-child {
-    border-right: none;
-}
-
-.submit button {
-    background-color: #fa4e4e;
-    color: rgb(0, 0, 0);
-    border: none;
-    padding: 5px;
-    border-radius: 3px;
     font-family: "Itim", cursive;
-    font-size: 17px;
-    margin-top: 5px;
-    margin-bottom: 5px;
 }
+
+/* Style the submit button */
+.submit button {
+    grid-column: span 2;
+    padding: 18px; /* Larger button for better usability */
+    font-size: 18px; /* Larger font size for the button */
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: "Itim", cursive;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.submit button:hover {
+    background-color: #ff4c4c;
+    font-family: "Itim", cursive;
+}
+
+/* Adjust the past entries heading */
+.entries h1 {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 26px; /* Larger heading font size */
+    font-family: "Itim", cursive;
+}
+
+
+/* Logs container styling */
+#logsContainer {
+    margin: 10px auto;
+    width: 100%; /* Ensure the container uses the full available width */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 9px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-height: 150px;
+    margin-bottom: 100px;
+    display: flex; /* Enable flexbox */
+    flex-direction: column; /* Stack items vertically */
+    gap: 20px; /* Add spacing between log entries */
+    justify-content: flex-start; /* Align items to the top */
+}
+
+/* Log entry styling */
+.log-entry {
+    background-color: #f8d7da;
+    border-radius: 5px;
+    padding: 15px;
+    width: 100%; /* Ensure the log entry takes full width */
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.log-entry button {
+    font-family: "Itim", cursive;
+}
+

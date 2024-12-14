@@ -8,30 +8,17 @@
     <script src="script2.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Itim&family=Jua&display=swap" rel="stylesheet">
 </head>
-<div class="title">
-    <h1>Penny-wise</h1>
-</div>
 <body>
-    <nav class = "navbar">
-        <ul>
-            <li class="home"><a href="Penny-wise.html">Home</a></li>
-            <li><a href="entries.html">Past entries</a></li>
-        </ul>
-    </nav>
+    <div class="title">
+        <h1>Penny-wise</h1>
+    </div>
 
     <div class="container">
-        <div class="spending">
-            <p>Total Spending</p>
-            <h1 id="total-spending">$0.00</h1>
-        </div>
+        <form id="expenseForm" class="expenselist" onsubmit="addExpenseLog(event)">
 
-        <form id="expenseForm" class="expenselist" action="submitExpenses.php" method="POST" onsubmit="storeData(event)">
-            <div class="dateselector">
-                <label for="dateInput">Select a Date:</label>
-                <input type="date" id="dateInput" class="date-input" name="date" onchange="updateDate()" required />
-            </div>
             <div class="expenseitem1">
-                <select class="expensecategory" name="category[]" onchange="enableAmount(this)" required>
+                <label for="Category">Category:</label>
+                <select id="Category" class="expensecategory" onchange="enableAmount(this)" required>
                     <option value="" disabled selected>Select Category</option>
                     <option value="Groceries">Groceries</option>
                     <option value="Transportation">Transportation</option>
@@ -39,45 +26,29 @@
                     <option value="Utilities">Utilities</option>
                     <option value="Healthcare">Healthcare</option>
                 </select>
-                <input type="number" class="expense-amount" name="amount[]" placeholder="$0.00" disabled onchange="total()" required />
             </div>
-            <div class="expenseitem2">
-                <select class="expensecategory" name="category[]" onchange="enableAmount(this)" required>
-                    <option value="" disabled selected>Select Category</option>
-                    <option value="Groceries">Groceries</option>
-                    <option value="Transportation">Transportation</option>
-                    <option value="Entertainment">Entertainment</option>
-                    <option value="Utilities">Utilities</option>
-                    <option value="Healthcare">Healthcare</option>
-                </select>
-                <input type="number" class="expense-amount" name="amount[]" placeholder="$0.00" disabled onchange="total()" required />
+
+            <div class="dateselector">
+                <label for="Date">Date:</label>
+                <input type="date" id="Date" class="date-input" required />
             </div>
-            <div class="expenseitem3">
-                <select class="expensecategory" name="category[]" onchange="enableAmount(this)" required>
-                    <option value="" disabled selected>Select Category</option>
-                    <option value="Groceries">Groceries</option>
-                    <option value="Transportation">Transportation</option>
-                    <option value="Entertainment">Entertainment</option>
-                    <option value="Utilities">Utilities</option>
-                    <option value="Healthcare">Healthcare</option>
-                </select>
-                <input type="number" class="expense-amount" name="amount[]" placeholder="$0.00" disabled onchange="total()" required />
+
+            <div class="Amount">
+                <label for="Amount">Amount:</label>
+                <input type="number" id="Amount" class="expense-amount" placeholder="$0.00" disabled onchange="total()" required />
             </div>
-            <div class="expenseitem4">
-                <select class="expensecategory" name="category[]" onchange="enableAmount(this)" required>
-                    <option value="" disabled selected>Select Category</option>
-                    <option value="Groceries">Groceries</option>
-                    <option value="Transportation">Transportation</option>
-                    <option value="Entertainment">Entertainment</option>
-                    <option value="Utilities">Utilities</option>
-                    <option value="Healthcare">Healthcare</option>
-                </select>
-                <input type="number" class="expense-amount" name="amount[]" placeholder="$0.00" disabled onchange="total()" required />
-            </div>
+
             <div class="submit">
-                <button type="button" onclick="SubmitLog()">Submit</button>
+                <button type="submit">Submit</button>
             </div>
         </form>
+
+        <div class="entries">
+            <h1>Past Entries</h1>
+            <div id="expenseList">
+                <!-- Logs will be dynamically loaded here -->
+            </div>
+        </div>
     </div>
 </body>
 </html>

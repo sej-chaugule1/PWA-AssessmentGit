@@ -1,227 +1,143 @@
-function total() {
-    const expenseInputs = document.querySelectorAll('.expense-amount');
-    let total = 0;
+let isEditMode = false; // Track whether we're in edit mode
+let editId = null; // Store the ID of the session being edited
 
-    expenseInputs.forEach(input => {
-        const value = parseFloat(input.value);
-        if (!isNaN(value)) {
-            total += value;
-        }
-    });
+function addExpenseLog(event) {
+    event.preventDefault();
 
-    document.getElementById('total-spending').innerText = `$${total.toFixed(2)}`;
-}
+    const Category = document.getElementById('Category').value;
+    const Amount = document.getElementById('Amount').value;
+    const Date = document.getElementById('Date').value;
 
-function enableAmount(selectElement) {
-    // Get the corresponding expense amount input field
-    const expenseInput = selectElement.parentElement.querySelector('.expense-amount');
-    
-    // Enable the input if a category is selected, otherwise keep it disabled
-    if (selectElement.value) {
-        expenseInput.disabled = false; // Enable the input field
-    } else {
-        expenseInput.disabled = true;  // Disable the input field
-        expenseInput.value = '';       // Clear any previously entered value
-    }
-}
-// This must stay
-
-async function enableAmount(selectElement) {
-    const expenseInput = selectElement.parentElement.querySelector('.expense-amount');
-    if (selectElement.value) {
-        expenseInput.disabled = false;
-    } else {
-        expenseInput.disabled = true;
-        expenseInput.value = '';
-    }
-}
-
-async function SubmitLog() {
-    const date = document.getElementById('dateInput').value;
-    const categories = document.querySelectorAll('.expensecategory');
-    const amounts = document.querySelectorAll('.expense-amount');
-
-    if (!date) {
-        alert('Please select a date.');
-        return;
-    }
-
-    const logs = [];
-    let hasError = false;
-
-    categories.forEach((category, index) => {
-        const amount = amounts[index];
-        const amountValue = parseFloat(amount.value);
-
-        if (!category.value || !amount.value) {
-            return; // Skip empty category or amount
-        }
-
-        if (isNaN(amountValue) || amountValue < 0) {
-            alert(`Invalid input detected for category "${category.value || 'Unknown'}". Please enter a positive number.`);
-            hasError = true;
-            return;
-        }
-
-        logs.push({
-            Category: category.value,
-            Amount: amountValue,
-            Date: date,
-        });
-    });
-
-    if (hasError) {
-        return;
-    }
-
-    if (logs.length === 0) {
-        alert('Please enter at least one valid expense.');
-        return;
-    }
-
-    try {
-        // Send logs to the backend
-        for (const log of logs) {
-            await fetch('http://localhost:3000/Expense', {
+    // Ensure all fields are filled out
+    if (Category && Amount && Date) {
+        if (!isEditMode) { // Add only if not in edit mode
+            fetch('http://localhost:3001/api/Expense', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(log),
+                body: JSON.stringify({ Category, Date, Amount }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Expense log added:', data);
+                loadExpenseLog(); 
+                expenseForm.reset(); // Clear the form fields
+                switchToAddMode(); // Reset to add mode after adding
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
+        } else {
+            updateExpenseLog(event); // If in edit mode, call update function
         }
-
-        alert('Logs submitted successfully!');
-        window.location.href = 'entries.html';
-    } catch (error) {
-        console.error('Error submitting logs:', error);
-        alert('Failed to submit logs. Please try again.');
+    } else {
+        alert('Please fill in all required fields.');
     }
 }
 
-async function fetchLogs() {
-    try {
-        const response = await fetch('http://localhost:3000/Expense');
-        const logs = await response.json();
-        renderLogs(logs);
-    } catch (error) {
-        console.error('Error fetching logs:', error);
-        alert('Failed to fetch logs.');
-    }
+// Function to switch to "Add" mode
+function switchToAddMode() {
+    isEditMode = false;
+    editId = null;
+    document.querySelector('button[type="submit"]').textContent = 'Add Expense log';
+    expenseForm.reset(); // Clear form fields
 }
 
-function renderLogs(logs) {
-    const logContainer = document.getElementById('log-container');
-    logContainer.innerHTML = '';
+// Function to switch to "Edit" mode
+function switchToEditMode() {
+    isEditMode = true;
+    document.querySelector('button[type="submit"]').textContent = 'Update Expense log';
+}
 
-    const groupedLogs = logs.reduce((acc, log) => {
-        acc[log.Date] = acc[log.Date] || [];
-        acc[log.Date].push(log);
-        return acc;
-    }, {});
-
-    for (const date in groupedLogs) {
-        const dateLogs = groupedLogs[date];
-        const totalSpending = dateLogs.reduce((sum, log) => sum + parseFloat(log.Amount), 0);
-
-        const dateContainer = document.createElement('div');
-        dateContainer.classList.add('date-container');
-        dateContainer.innerHTML = `<h2>Date: ${date}</h2>`;
-
-        const totalDiv = document.createElement('div');
-        totalDiv.classList.add('total-spending');
-        totalDiv.innerHTML = `<p>Total Spending: $${totalSpending.toFixed(2)}</p>`;
-        dateContainer.appendChild(totalDiv);
-
-        dateLogs.forEach((log, index) => {
-            const logDiv = document.createElement('div');
-            logDiv.classList.add('log-entry');
-            logDiv.innerHTML = `
-                <div class="log">
-                    <p>Category: ${log.Category}</p>
-                    <p>Amount: $${parseFloat(log.Amount).toFixed(2)}</p>
-                    <button onclick="deleteLog(${log.id})">Delete</button>
-                    <button onclick="editLog(${log.id})">Edit</button>
-                </div>
-            `;
-            dateContainer.appendChild(logDiv);
+function loadExpenseLog() {
+    fetch('http://localhost:3001/api/Expense')
+        .then(response => response.json())
+        .then(data => {
+            expenseList.innerHTML = ''; // Clear the existing list
+            data.forEach(log => {
+                const expenseItem = document.createElement('div');
+                expenseItem.className = 'expense-item';
+                expenseItem.innerHTML = `
+                    <h3>${log.Category}</h3>
+                    <p>Date: ${log.Date}</p>
+                    <p>Amount: ${log.Amount} minutes</p>
+                    <button onclick="editExpenseLog(${log.id})">Edit</button>
+                    <button onclick="deleteExpenseLog(${log.id})">Delete</button>
+                `;
+                expenseList.appendChild(expenseItem);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching expense log:', error);
         });
-
-        logContainer.appendChild(dateContainer);
-    }
 }
 
-async function deleteLog(id) {
-    if (confirm('Are you sure you want to delete this log?')) {
-        try {
-            await fetch(`http://localhost:3000/Expense/${id}`, {
-                method: 'DELETE',
-            });
-            alert('Log deleted successfully!');
-            fetchLogs();
-        } catch (error) {
-            console.error('Error deleting log:', error);
-            alert('Failed to delete log.');
-        }
-    }
+function editExpenseLog(id) {
+    // Retrieve the current session details
+    fetch(`http://localhost:3001/api/Expense/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            // Populate the form with the existing data
+            document.getElementById('Category').value = data.Category;
+            document.getElementById('Amount').value = data.Amount;
+            document.getElementById('Date').value = data.Date;
+
+            // Set the form to update mode
+            isEditMode = true;
+            editId = id;
+            switchToEditMode(); // Switch to edit mode
+        })
+        .catch(error => {
+            console.error('Error fetching expense log:', error);
+        });
 }
 
-async function editLog(id) {
-    const logs = await fetch(`http://localhost:3000/Expense/${id}`).then((res) => res.json());
-
-    const logContainer = document.querySelector(`.log-entry[data-id="${id}"]`);
-    if (!logContainer) return;
-
-    logContainer.innerHTML = `
-        <form id="editLogForm" onsubmit="saveLog(event, ${id})" style="display: flex; flex-direction: column; gap: 5px;">
-            <label for="editCategory">Category:</label>
-            <select id="editCategory" required>
-                <option value="Groceries" ${logs.Category === 'Groceries' ? 'selected' : ''}>Groceries</option>
-                <option value="Transportation" ${logs.Category === 'Transportation' ? 'selected' : ''}>Transportation</option>
-                <option value="Entertainment" ${logs.Category === 'Entertainment' ? 'selected' : ''}>Entertainment</option>
-                <option value="Utilities" ${logs.Category === 'Utilities' ? 'selected' : ''}>Utilities</option>
-                <option value="Healthcare" ${logs.Category === 'Healthcare' ? 'selected' : ''}>Healthcare</option>
-            </select>
-            <label for="editAmount">Amount:</label>
-            <input type="number" id="editAmount" value="${logs.Amount}" required />
-            <label for="editDate">Date:</label>
-            <input type="date" id="editDate" value="${logs.Date}" required />
-            <button type="submit">Save</button>
-            <button type="button" onclick="cancelEdit()">Cancel</button>
-        </form>
-    `;
-}
-
-async function saveLog(event, id) {
+function updateExpenseLog(event) {
     event.preventDefault();
 
-    const editedCategory = document.getElementById('editCategory').value;
-    const editedAmount = parseFloat(document.getElementById('editAmount').value).toFixed(2);
-    const editedDate = document.getElementById('editDate').value;
+    const Category = document.getElementById('Category').value;
+    const Amount = document.getElementById('Amount').value;
+    const Date = document.getElementById('Date').value;
 
-    try {
-        await fetch(`http://localhost:3000/Expense/${id}`, {
+    if (isEditMode && editId !== null) {
+        // Send a PUT request to update the study session
+        fetch(`http://localhost:3001/api/Expense/${editId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                Category: editedCategory,
-                Amount: editedAmount,
-                Date: editedDate,
-            }),
+            body: JSON.stringify({ Category, Date, Amount }),
+        })
+        .then(() => {
+            console.log('Expense log updated');
+            loadExpenseLog(); // Reload the list of study sessions
+            switchToAddMode(); // Switch back to "Add" mode
+        })
+        .catch(error => {
+            console.error('Error updating expense log:', error);
         });
-        alert('Log updated successfully!');
-        fetchLogs();
-    } catch (error) {
-        console.error('Error updating log:', error);
-        alert('Failed to update log.');
     }
 }
 
-function cancelEdit() {
-    fetchLogs();
+// Function to delete a study session
+function deleteExpenseLog(id) {
+    if (confirm('Are you sure you want to delete this expense log?')) {
+        fetch(`http://localhost:3001/api/Expense/${id}`, {
+            method: 'DELETE',
+        })
+        .then(() => {
+            console.log('Expense log deleted');
+            loadExpenseLog(); // Reload the list of study sessions
+        })
+        .catch(error => {
+            console.error('Error deleting expense log:', error);
+        });
+    }
 }
 
-window.onload = fetchLogs;
-
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    loadExpenseLog(); // Load study sessions when the page loads
+    expenseForm.onsubmit = addExpenseLog; // Set default form submission to add mode
+});
