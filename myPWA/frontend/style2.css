@@ -13,7 +13,23 @@ body {
     font-weight: 400;
     font-style: normal;
     overflow-y: auto;
-    min-height: 100vh; /* Allow content to grow beyond the viewport */
+    min-height: 100vh; /* Ensure content can grow beyond viewport */
+    padding-top: 60px; /* Add padding equal to the title's height */
+    overflow-y: auto;
+}
+
+.title {
+    position: fixed; 
+    top: 0; 
+    width: 100%; 
+    text-align: center;
+    background-color: #ffdfdf; 
+    padding: 15px 0; 
+    font-family: 'Itim', 'Jua', sans-serif; 
+    font-size: 25px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    z-index: 1000; 
+    color:#ff7474;
 }
 
 /* Center the form */
@@ -24,6 +40,7 @@ body {
     justify-content: center;
     padding: 20px;
     font-family: "Itim", cursive;
+    margin-top: 40px;
 }
 
 /* Style the form */
@@ -35,7 +52,7 @@ body {
     padding: 40px; /* Increase padding for a larger form box */
     border-radius: 15px; /* Larger border radius for rounded corners */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly deeper shadow */
-    width: 400px; /* Increase form width */
+    width: 450px; /* Increase form width */
     max-width: 100%; /* Ensure responsiveness */
     font-family: "Itim", cursive;
 }
@@ -63,7 +80,7 @@ body {
 /* Style the submit button */
 .submit button {
     grid-column: span 2;
-    padding: 18px; /* Larger button for better usability */
+    padding: 10px; /* Larger button for better usability */
     font-size: 18px; /* Larger font size for the button */
     background-color: #ff6b6b;
     color: white;
@@ -72,8 +89,9 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
     font-family: "Itim", cursive;
-    margin-top: 10px;
-    margin-left: 10px;
+    margin-top: 18px;
+    margin-left: 1px;
+    font-size: 18px;
 }
 
 .submit button:hover {
@@ -89,6 +107,9 @@ body {
     font-family: "Itim", cursive;
 }
 
+.entries {
+    margin-bottom: 200px;
+}
 
 /* Logs container styling */
 #logsContainer {
@@ -101,9 +122,8 @@ body {
     min-height: 150px;
     margin-bottom: 100px;
     display: flex; /* Enable flexbox */
-    flex-direction: column; /* Stack items vertically */
+    align-items: flex-start; /* Align logs to the left */
     gap: 20px; /* Add spacing between log entries */
-    justify-content: flex-start; /* Align items to the top */
 }
 
 /* Log entry styling */
@@ -112,7 +132,7 @@ body {
     border-radius: 5px;
     padding: 15px;
     width: 100%; /* Ensure the log entry takes full width */
-    text-align: center;
+    text-align: left; /* Align text to the left */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -120,3 +140,16 @@ body {
     font-family: "Itim", cursive;
 }
 
+.expense-item {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    line-height: 1.5;
+    width: 450px;
+    margin-top: 10px;
+}
+
+.expense-item button {
+    font-family: "Itim", cursive;
+    font-size: 15px;
+}

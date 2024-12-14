@@ -1,1 +1,1 @@
-select * FROM Expense;
+select * from Expense;

@@ -18,7 +18,7 @@
 
             <div class="expenseitem1">
                 <label for="Category">Category:</label>
-                <select id="Category" class="expensecategory" onchange="enableAmount(this)" required>
+                <select id="Category" class="expensecategory" required>
                     <option value="" disabled selected>Select Category</option>
                     <option value="Groceries">Groceries</option>
                     <option value="Transportation">Transportation</option>
@@ -35,7 +35,7 @@
 
             <div class="Amount">
                 <label for="Amount">Amount:</label>
-                <input type="number" id="Amount" class="expense-amount" placeholder="$0.00" disabled onchange="total()" required />
+                <input type="number" id="Amount" class="expense-amount" placeholder="$0.00" required />
             </div>
 
             <div class="submit">
