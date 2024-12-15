@@ -153,3 +153,70 @@ body {
     font-family: "Itim", cursive;
     font-size: 15px;
 }
+
+#sort-container {
+    top: 10px;         
+    right: 10px;    
+    background-color: #f9f9f9; 
+    border: 1px solid #ffffff;   
+    border-radius: 5px;  
+    padding: 10px;            
+    z-index: 1000;
+    position: fixed;             
+}
+
+#sort-container label {
+    margin-right: 5px;
+    font-weight: bold; 
+}
+
+#SortBy {
+    padding: 5px;             
+    border-radius: 5px;      
+    border: 1px solid #ccc;   
+    font-family: "Itim", cursive;
+    font-size: 17px;
+}
+
+/* Responsive title adjustments */
+@media (max-width: 1050px) {
+    .title {
+        font-size: 18px; /* Slightly reduce font size for smaller screens */
+        padding: 10px 0; /* Reduce padding for better fit */
+        width: 730%;
+    }
+
+    #sort-container {
+        position: fixed;
+        top: 10px;         
+        right: 10px;    
+        background-color: #f9f9f9; 
+        border: 1px solid #ffffff;   
+        border-radius: 7px;  
+        padding: 6px;            
+        z-index: 1000;      
+        font-size: 12px;
+        float: right;
+    }
+
+    #SortBy {
+        padding: 3px;             
+        border-radius: 5px;      
+        border: 1px solid #ccc;   
+        font-family: "Itim", cursive;
+        font-size: 15px;
+        font-size: 12px;
+    }
+    
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        font-family: "Itim", cursive;
+        margin-top: 40px;
+        margin-left: 70px;
+    }
+
+}

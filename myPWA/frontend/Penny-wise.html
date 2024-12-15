@@ -6,12 +6,24 @@
     <title>Penny-wise</title>
     <link rel="stylesheet" href="style2.css">
     <script src="script2.js" defer></script>
+    <link rel="manifest" href="../manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Itim&family=Jua&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="title">
         <h1>Penny-wise</h1>
     </div>
+
+    <div id="sort-container">
+    <label for="SortBy">Sort By:</label>
+    <select id="SortBy">
+        <option value="">None</option>
+        <option value="Date">Date</option>
+        <option value="Category">Category</option>
+        <option value="Amount">Amount</option>
+    </select>
+    </div>
+
 
     <div class="container">
         <form id="expenseForm" class="expenselist" onsubmit="addExpenseLog(event)">
@@ -50,5 +62,6 @@
             </div>
         </div>
     </div>
+
 </body>
 </html>

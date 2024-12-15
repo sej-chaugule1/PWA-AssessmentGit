@@ -54,7 +54,7 @@ function addExpenseLog(event) {
 function switchToAddMode() {
     isEditMode = false;
     editId = null;
-    document.querySelector('button[type="submit"]').textContent = 'Add Expense log';
+    document.querySelector('button[type="submit"]').textContent = 'Submit';
     expenseForm.reset(); // Clear form fields
     toggleAmountInput(); // Re-check the amount input state
 }
@@ -62,11 +62,17 @@ function switchToAddMode() {
 // Function to switch to "Edit" mode
 function switchToEditMode() {
     isEditMode = true;
-    document.querySelector('button[type="submit"]').textContent = 'Update Expense log';
+    document.querySelector('button[type="submit"]').textContent = 'Update';
 }
 
+const sortSelect = document.getElementById('SortBy');
+
+sortSelect.addEventListener('change', loadExpenseLog);
+
 function loadExpenseLog() {
-    fetch('http://localhost:3000/api/Expense')
+    const sortBy = sortSelect.value; // Get the selected sorting criterion
+
+    fetch(`http://localhost:3000/api/Expense?sortBy=${sortBy}`)
         .then(response => response.json())
         .then(data => {
             expenseList.innerHTML = ''; // Clear the existing list
@@ -159,3 +165,14 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleAmountInput(); // Ensure the amount input is initially disabled if no category is selected
 });
 
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/myPWA/service-worker.js')
+            .then(registration => {
+                console.log('Service Worker registered with scope:', registration.scope);
+            })
+            .catch(error => {
+                console.log('Service Worker registration failed:', error);
+            });
+    });
+}

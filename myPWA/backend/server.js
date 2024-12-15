@@ -32,6 +32,29 @@ const db = new sqlite3.Database(dbPath, (err) => {
     }
 });
 
+app.get('/api/Expense', (req, res) => {
+    const { sortBy } = req.query;
+
+    let query = 'SELECT * FROM Expense';
+    if (sortBy) {
+        const validColumns = ['Date', 'Category', 'Amount']; // Allowed columns for sorting
+        if (validColumns.includes(sortBy)) {
+            query += ` ORDER BY ${sortBy}`;
+        } else {
+            return res.status(400).send('Invalid sort parameter');
+        }
+    }
+
+    db.all(query, [], (err, rows) => {
+        if (err) {
+            console.error('Error retrieving data:', err.message);
+            res.status(500).send('Error retrieving data');
+        } else {
+            res.status(200).json(rows);
+        }
+    });
+});
+
 // Get all expenses
 app.get('/api/Expense', (req, res) => {
     db.all('SELECT * FROM Expense', [], (err, rows) => {
