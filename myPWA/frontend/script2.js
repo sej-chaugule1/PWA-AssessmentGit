@@ -9,9 +9,9 @@ categoryInput.addEventListener('change', toggleAmountInput); // Listen for categ
 
 function toggleAmountInput() {
     if (categoryInput.value) {
-        amountInput.disabled = false; // Enable the amount input when a category is selected
+        amountInput.disabled = false; 
     } else {
-        amountInput.disabled = true; // Disable the amount input if no category is selected
+        amountInput.disabled = true; 
     }
 }
 
@@ -22,9 +22,8 @@ function addExpenseLog(event) {
     const Amount = amountInput.value;
     const Date = document.getElementById('Date').value;
 
-    // Ensure all fields are filled out
     if (Category && Amount && Date) {
-        if (!isEditMode) { // Add only if not in edit mode
+        if (!isEditMode) { 
             fetch('http://localhost:3000/api/Expense', {
                 method: 'POST',
                 headers: {
@@ -36,30 +35,28 @@ function addExpenseLog(event) {
             .then(data => {
                 console.log('Expense log added:', data);
                 loadExpenseLog(); 
-                expenseForm.reset(); // Clear the form fields
-                switchToAddMode(); // Reset to add mode after adding
+                expenseForm.reset(); 
+                switchToAddMode(); 
             })
             .catch(error => {
                 console.error('Error:', error);
             });
         } else {
-            updateExpenseLog(event); // If in edit mode, call update function
+            updateExpenseLog(event); 
         }
     } else {
         alert('Please fill in all required fields.');
     }
 }
 
-// Function to switch to "Add" mode
 function switchToAddMode() {
     isEditMode = false;
     editId = null;
     document.querySelector('button[type="submit"]').textContent = 'Submit';
-    expenseForm.reset(); // Clear form fields
-    toggleAmountInput(); // Re-check the amount input state
+    expenseForm.reset();
+    toggleAmountInput(); 
 }
 
-// Function to switch to "Edit" mode
 function switchToEditMode() {
     isEditMode = true;
     document.querySelector('button[type="submit"]').textContent = 'Update';
