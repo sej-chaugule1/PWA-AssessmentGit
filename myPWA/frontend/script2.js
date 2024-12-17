@@ -23,6 +23,12 @@ function addExpenseLog(event) {
     const Date = document.getElementById('Date').value;
 
     if (Category && Amount && Date) {
+        if (Category && Amount && Date) {
+            if (Amount < 0) {
+                alert('Amount cannot be negative. Please enter a valid number.');
+                return;
+            }
+        }
         if (!isEditMode) { 
             fetch('http://localhost:3000/api/Expense', {
                 method: 'POST',
@@ -118,6 +124,11 @@ function updateExpenseLog(event) {
     const Category = categoryInput.value;
     const Amount = amountInput.value;
     const Date = document.getElementById('Date').value;
+
+    if (Amount < 0) {
+        alert('Amount cannot be negative. Please enter a valid number.');
+        return;
+    }
 
     if (isEditMode && editId !== null) {
         // Send a PUT request to update the expense log
