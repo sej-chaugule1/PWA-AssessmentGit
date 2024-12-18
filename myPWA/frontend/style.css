@@ -1,5 +1,5 @@
 body {
-    background-color: #f5d1c9;
+    background-color: #f8d7da;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,6 +63,10 @@ input[type="submit"] {
     border-radius: 20px;
     margin-left: 70px;
     font-family: "Itim", cursive;
+}
+
+[type="submit"]:hover {
+    background-color: #e5e4e4;
 }
 
 .form-box {

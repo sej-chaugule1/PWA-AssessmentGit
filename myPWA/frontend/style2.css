@@ -13,8 +13,8 @@ body {
     font-weight: 400;
     font-style: normal;
     overflow-y: auto;
-    min-height: 100vh; /* Ensure content can grow beyond viewport */
-    padding-top: 60px; /* Add padding equal to the title's height */
+    min-height: 100vh; 
+    padding-top: 60px; 
     overflow-y: auto;
 }
 
@@ -29,7 +29,7 @@ body {
     font-size: 25px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     z-index: 1000; 
-    color:#ff7474;
+    color:#000000;
 }
 
 /* Center the form */
@@ -43,47 +43,43 @@ body {
     margin-top: 40px;
 }
 
-/* Style the form */
 .expenselist {
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: 15px 20px; /* Increase spacing between labels and inputs */
+    gap: 15px 20px; 
     background-color: #f0f0f0;
-    padding: 40px; /* Increase padding for a larger form box */
-    border-radius: 15px; /* Larger border radius for rounded corners */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly deeper shadow */
-    width: 450px; /* Increase form width */
-    max-width: 100%; /* Ensure responsiveness */
+    padding: 40px; 
+    border-radius: 15px; 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+    width: 450px;
+    max-width: 100%;
     font-family: "Itim", cursive;
 }
 
-/* Align labels and inputs */
 .expenselist label {
     text-align: right;
     font-weight: bold;
-    font-size: 16px; /* Slightly larger text for labels */
+    font-size: 16px; 
     align-self: center;
     font-family: "Itim", cursive;
 }
 
-/* Style the input fields and dropdown */
 .expenselist input,
 .expenselist select {
-    padding: 10px; /* Add more padding to make inputs feel larger */
-    font-size: 16px; /* Slightly larger font size for inputs */
+    padding: 10px; 
+    font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 100%;
     font-family: "Itim", cursive;
 }
 
-/* Style the submit button */
 .submit button {
     grid-column: span 2;
-    padding: 10px; /* Larger button for better usability */
-    font-size: 18px; /* Larger font size for the button */
+    padding: 10px; 
+    font-size: 18px;
     background-color: #ff6b6b;
-    color: white;
+    color: rgb(0, 0, 0);
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -99,11 +95,10 @@ body {
     font-family: "Itim", cursive;
 }
 
-/* Adjust the past entries heading */
 .entries h1 {
     text-align: center;
     margin-top: 30px;
-    font-size: 26px; /* Larger heading font size */
+    font-size: 26px; 
     font-family: "Itim", cursive;
 }
 
@@ -114,25 +109,24 @@ body {
 /* Logs container styling */
 #logsContainer {
     margin: 10px auto;
-    width: 100%; /* Ensure the container uses the full available width */
+    width: 100%; 
     padding: 20px;
     background-color: #fff;
     border-radius: 9px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     min-height: 150px;
     margin-bottom: 100px;
-    display: flex; /* Enable flexbox */
-    align-items: flex-start; /* Align logs to the left */
-    gap: 20px; /* Add spacing between log entries */
+    display: flex; 
+    align-items: flex-start; 
+    gap: 20px; 
 }
 
-/* Log entry styling */
 .log-entry {
     background-color: #f8d7da;
     border-radius: 5px;
     padding: 15px;
-    width: 100%; /* Ensure the log entry takes full width */
-    text-align: left; /* Align text to the left */
+    width: 100%; 
+    text-align: left; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -178,11 +172,11 @@ body {
     font-size: 17px;
 }
 
-/* Responsive title adjustments */
+
 @media (max-width: 1050px) {
     .title {
-        font-size: 18px; /* Slightly reduce font size for smaller screens */
-        padding: 10px 0; /* Reduce padding for better fit */
+        font-size: 18px; 
+        padding: 10px 0; 
         width: 730%;
     }
 

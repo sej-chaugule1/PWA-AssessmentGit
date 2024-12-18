@@ -1,11 +1,10 @@
-let isEditMode = false; // Track whether we're in edit mode
-let editId = null; // Store the ID of the session being edited
+let isEditMode = false; 
+let editId = null; 
 
-// Get the category and amount elements
 const categoryInput = document.getElementById('Category');
 const amountInput = document.getElementById('Amount');
 
-categoryInput.addEventListener('change', toggleAmountInput); // Listen for category changes
+categoryInput.addEventListener('change', toggleAmountInput); 
 
 function toggleAmountInput() {
     if (categoryInput.value) {
@@ -73,12 +72,12 @@ const sortSelect = document.getElementById('SortBy');
 sortSelect.addEventListener('change', loadExpenseLog);
 
 function loadExpenseLog() {
-    const sortBy = sortSelect.value; // Get the selected sorting criterion
+    const sortBy = sortSelect.value; 
 
     fetch(`http://localhost:3000/api/Expense?sortBy=${sortBy}`)
         .then(response => response.json())
         .then(data => {
-            expenseList.innerHTML = ''; // Clear the existing list
+            expenseList.innerHTML = '';
             data.forEach(log => {
                 const expenseItem = document.createElement('div');
                 expenseItem.className = 'expense-item';
@@ -98,20 +97,17 @@ function loadExpenseLog() {
 }
 
 function editExpenseLog(id) {
-    // Retrieve the current session details
     fetch(`http://localhost:3000/api/Expense/${id}`)
         .then(response => response.json())
         .then(data => {
-            // Populate the form with the existing data
             categoryInput.value = data.Category;
             amountInput.value = data.Amount;
             document.getElementById('Date').value = data.Date;
 
-            // Set the form to update mode
             isEditMode = true;
             editId = id;
-            switchToEditMode(); // Switch to edit mode
-            toggleAmountInput(); // Ensure amount input is enabled
+            switchToEditMode(); 
+            toggleAmountInput(); 
         })
         .catch(error => {
             console.error('Error fetching expense log:', error);
@@ -131,7 +127,6 @@ function updateExpenseLog(event) {
     }
 
     if (isEditMode && editId !== null) {
-        // Send a PUT request to update the expense log
         fetch(`http://localhost:3000/api/Expense/${editId}`, {
             method: 'PUT',
             headers: {
@@ -141,8 +136,8 @@ function updateExpenseLog(event) {
         })
         .then(() => {
             console.log('Expense log updated');
-            loadExpenseLog(); // Reload the list of expense logs
-            switchToAddMode(); // Switch back to "Add" mode
+            loadExpenseLog();
+            switchToAddMode(); 
         })
         .catch(error => {
             console.error('Error updating expense log:', error);
@@ -150,7 +145,6 @@ function updateExpenseLog(event) {
     }
 }
 
-// Function to delete an expense log
 function deleteExpenseLog(id) {
     if (confirm('Are you sure you want to delete this expense log?')) {
         fetch(`http://localhost:3000/api/Expense/${id}`, {
@@ -158,7 +152,7 @@ function deleteExpenseLog(id) {
         })
         .then(() => {
             console.log('Expense log deleted');
-            loadExpenseLog(); // Reload the list of expense logs
+            loadExpenseLog(); 
         })
         .catch(error => {
             console.error('Error deleting expense log:', error);
@@ -166,11 +160,10 @@ function deleteExpenseLog(id) {
     }
 }
 
-// Event listeners
 document.addEventListener('DOMContentLoaded', () => {
-    loadExpenseLog(); // Load expense logs when the page loads
-    expenseForm.onsubmit = addExpenseLog; // Set default form submission to add mode
-    toggleAmountInput(); // Ensure the amount input is initially disabled if no category is selected
+    loadExpenseLog();
+    expenseForm.onsubmit = addExpenseLog; 
+    toggleAmountInput();
 });
 
 if ('serviceWorker' in navigator) {
