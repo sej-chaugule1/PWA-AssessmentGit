@@ -29,3 +29,44 @@ function registerFunction(){
     registerTitle.style.top = "50%";
     registerTitle.style.opacity = 1;
 }
+
+function validatePassword() {
+  const password = document.getElementById("reg-pass").value;
+
+  const length = document.getElementById("length");
+  const uppercase = document.getElementById("uppercase");
+  const lowercase = document.getElementById("lowercase");
+  const number = document.getElementById("number");
+  const special = document.getElementById("special");
+
+  // Helper function
+  function updateItem(condition, element) {
+    if (condition) {
+      element.classList.add("valid");
+      element.innerHTML = "✔ " + element.textContent.slice(2);
+    } else {
+      element.classList.remove("valid");
+      element.innerHTML = "✖ " + element.textContent.slice(2);
+    }
+  }
+
+  updateItem(password.length >= 8, length);
+  updateItem(/[A-Z]/.test(password), uppercase);
+  updateItem(/[a-z]/.test(password), lowercase);
+  updateItem(/[0-9]/.test(password), number);
+  updateItem(/[^A-Za-z0-9]/.test(password), special);
+}
+
+signUpBtn.addEventListener("click", function(event) {
+    event.preventDefault();
+
+    const password = document.getElementById("reg-pass").value;
+    const criteria = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+    if (!criteria.test(password)) {
+        alert("Please meet all the password requirements before signing up.");
+        return;
+    }
+
+    alert("Registration successful!");
+});
