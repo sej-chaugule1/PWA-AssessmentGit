@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Marathi:ital@0;1&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -5,11 +7,11 @@
 }
 
 body {
-    background-color: #f8d7da;
+    background-color: #B2C0AB;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: "Itim", cursive;
+    font-family: "Tiro Devanagari Marathi", serif;
     font-weight: 400;
     font-style: normal;
     overflow-y: auto;
@@ -23,9 +25,8 @@ body {
     top: 0; 
     width: 100%; 
     text-align: center;
-    background-color: #ffdfdf; 
+    background-color: #B2C0AB; 
     padding: 15px 0; 
-    font-family: 'Itim', 'Jua', sans-serif; 
     font-size: 25px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     z-index: 1000; 
@@ -39,7 +40,6 @@ body {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    font-family: "Itim", cursive;
     margin-top: 40px;
 }
 
@@ -53,7 +53,6 @@ body {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
     width: 450px;
     max-width: 100%;
-    font-family: "Itim", cursive;
 }
 
 .expenselist label {
@@ -61,7 +60,6 @@ body {
     font-weight: bold;
     font-size: 16px; 
     align-self: center;
-    font-family: "Itim", cursive;
 }
 
 .expenselist input,
@@ -71,35 +69,44 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 100%;
-    font-family: "Itim", cursive;
+}
+
+.expensecategory {
+    font-family: "Tiro Devanagari Marathi", serif;
+}
+
+.date-input {
+    font-family: "Tiro Devanagari Marathi", serif;
+}
+
+.sort-container {
+    font-family: "Tiro Devanagari Marathi", serif;
 }
 
 .submit button {
     grid-column: span 2;
     padding: 10px; 
     font-size: 18px;
-    background-color: #ff6b6b;
+    background-color: #547954;
     color: rgb(0, 0, 0);
     border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-family: "Itim", cursive;
     margin-top: 18px;
     margin-left: 1px;
     font-size: 18px;
 }
 
 .submit button:hover {
-    background-color: #ff4c4c;
-    font-family: "Itim", cursive;
+    background-color: #3d573d;
 }
 
 .entries h1 {
     text-align: center;
     margin-top: 30px;
     font-size: 26px; 
-    font-family: "Itim", cursive;
+    color: #3b573b;
 }
 
 .entries {
@@ -131,7 +138,7 @@ body {
 }
 
 .log-entry button {
-    font-family: "Itim", cursive;
+  font-family: "Tiro Devanagari Marathi", serif;
 }
 
 .expense-item {
@@ -144,7 +151,6 @@ body {
 }
 
 .expense-item button {
-    font-family: "Itim", cursive;
     font-size: 15px;
 }
 
@@ -168,9 +174,22 @@ body {
     padding: 5px;             
     border-radius: 5px;      
     border: 1px solid #ccc;   
-    font-family: "Itim", cursive;
-    font-size: 17px;
+    font-size: 15px;
+    font-family: "Tiro Devanagari Marathi", serif;
 }
+
+.submit button {
+    font-family: "Tiro Devanagari Marathi", serif;
+}
+
+.Amount input {
+    font-family: "Tiro Devanagari Marathi", serif;
+}
+
+.expenseitem1 option {
+    font-family: "Tiro Devanagari Marathi", serif;
+}
+
 
 
 @media (max-width: 1050px) {
@@ -197,7 +216,6 @@ body {
         padding: 3px;             
         border-radius: 5px;      
         border: 1px solid #ccc;   
-        font-family: "Itim", cursive;
         font-size: 15px;
         font-size: 12px;
     }
@@ -208,7 +226,6 @@ body {
         align-items: center;
         justify-content: center;
         padding: 15px;
-        font-family: "Itim", cursive;
         margin-top: 40px;
         margin-left: 70px;
     }

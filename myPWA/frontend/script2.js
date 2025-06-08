@@ -85,8 +85,8 @@ function loadExpenseLog() {
                     <h3>${log.Category}</h3>
                     <p>Date: ${log.Date}</p>
                     <p>Amount:  $${log.Amount}</p>
-                    <button onclick="editExpenseLog(${log.id})" style="background-color: rgb(254, 113, 113); border: none; border-radius: 5px; padding: 4px;">Edit</button>
-                    <button onclick="deleteExpenseLog(${log.id})" style="background-color: rgb(254, 113, 113); border: none; border-radius: 5px; padding: 4px; margin-top: 10px;">Delete</button>
+                    <button onclick="editExpenseLog(${log.id})" style="background-color: #547954; border: none; border-radius: 5px; padding: 4px; font-family: 'Times New Roman', serif";>Edit</button>
+                    <button onclick="deleteExpenseLog(${log.id})" style="background-color: #547954; border: none; border-radius: 5px; padding: 4px; margin-top: 10px; font-family: 'Times New Roman', serif";>Delete</button>
                 `;
                 expenseList.appendChild(expenseItem);
             });
