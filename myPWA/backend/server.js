@@ -3,6 +3,8 @@ const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const bcrypt = require('bcrypt'); //New
+const session = require('express-session');
 
 const app = express();
 const port = 3000;
@@ -10,6 +12,12 @@ const port = 3000;
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
+//New
+app.use(session({
+    secret: 'your-secret-key', // use a strong secret in production
+    resave: false,
+    saveUninitialized: true
+}));
 
 // Set up SQLite database
 const dbPath = path.join(__dirname, 'Database', 'expense.db');
@@ -19,6 +27,16 @@ const db = new sqlite3.Database(dbPath, (err) => {
     } else {
         console.log('Connected to SQLite database');
         // Create Expense table if it doesn't exist
+        //New
+        db.run(`CREATE TABLE IF NOT EXISTS Users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE,
+    password TEXT
+)`, (err) => {
+    if (err) {
+        console.error('Error creating Users table:', err.message);
+    }
+});
         db.run(`CREATE TABLE IF NOT EXISTS Expense (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             Category TEXT,
@@ -125,6 +143,50 @@ app.delete('/api/Expense/:id', (req, res) => {
         }
     });
 });
+//New
+app.post('/signup', (req, res) => {
+    const { username, password } = req.body;
+
+    bcrypt.hash(password, 10, (err, hash) => {
+        if (err) {
+            console.error('Error hashing password:', err.message);
+            return res.status(500).send('Internal server error');
+        }
+
+        db.run(`INSERT INTO Users (username, password) VALUES (?, ?)`, [username, hash], function (err) {
+            if (err) {
+                console.error('Error inserting user:', err.message);
+                return res.status(400).send('Username already exists');
+            }
+            res.status(201).send('User registered successfully');
+        });
+    });
+});
+//New
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    db.get(`SELECT * FROM Users WHERE username = ?`, [username], (err, user) => {
+        if (err) {
+            console.error('Error retrieving user:', err.message);
+            return res.status(500).send('Internal server error');
+        }
+
+        if (!user) {
+            return res.status(401).send('Invalid username or password');
+        }
+
+        bcrypt.compare(password, user.password, (err, result) => {
+            if (result) {
+                req.session.username = username;
+                res.status(200).send('Login successful');
+            } else {
+                res.status(401).send('Invalid username or password');
+            }
+        });
+    });
+});
+
 
 // Start the server
 app.listen(port, () => {

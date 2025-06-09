@@ -1,1 +1,1 @@
-select * from Expense;
+select * from Users;
