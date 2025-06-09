@@ -9,6 +9,7 @@
     <link rel="manifest" href="../manifest.json">
 </head>
 <body>
+    <div id="preloader"></div>
     <div class="title">
         <h1>Penny-wise</h1>
     </div>
@@ -22,7 +23,6 @@
         <option value="Amount">Amount</option>
     </select>
     </div>
-
 
     <div class="container">
         <form id="expenseForm" class="expenselist" onsubmit="addExpenseLog(event)">
@@ -62,5 +62,11 @@
         </div>
     </div>
 
+    <script>
+  var loader = document.getElementById("preloader");
+  window.addEventListener("load", function(){
+    loader.style.display = "none"
+  })
+</script>
 </body>
 </html>
