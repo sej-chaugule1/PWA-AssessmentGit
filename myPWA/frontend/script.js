@@ -60,7 +60,9 @@ function validatePassword() {
 signUpBtn.addEventListener("click", function(event) {
     event.preventDefault();
 
+    const username = document.getElementById("reg-name").value;
     const password = document.getElementById("reg-pass").value;
+
     const criteria = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
     if (!criteria.test(password)) {
@@ -68,5 +70,51 @@ signUpBtn.addEventListener("click", function(event) {
         return;
     }
 
-    alert("Registration successful!");
+    // Send data to server
+    fetch('http://localhost:3000/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("Registration successful!");
+            registerFunction(); // Switch to login view
+        } else {
+            return response.text().then(text => { throw new Error(text); });
+        }
+    })
+    .catch(error => {
+        console.error("Signup error:", error.message);
+        alert("Signup failed: " + error.message);
+    });
+});
+
+signInBtn.addEventListener("click", function(event) {
+    event.preventDefault();
+
+    const username = document.getElementById("log-email").value;
+    const password = document.getElementById("log-pass").value;
+
+    fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("Login successful!");
+            window.location.href = "Penny-wise.html";  // Replace with your actual page
+        } else {
+            return response.text().then(text => { throw new Error(text); });
+        }
+    })
+    .catch(error => {
+        console.error("Login error:", error.message);
+        alert("Login failed: " + error.message);
+    });
 });

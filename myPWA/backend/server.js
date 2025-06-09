@@ -173,15 +173,19 @@ app.post('/login', (req, res) => {
         }
 
         if (!user) {
-            return res.status(401).send('Invalid username or password');
+            return res.status(401).send('User not found');
         }
 
         bcrypt.compare(password, user.password, (err, result) => {
+            if (err) {
+                console.error('Error comparing passwords:', err.message);
+                return res.status(500).send('Error during login');
+            }
+
             if (result) {
-                req.session.username = username;
                 res.status(200).send('Login successful');
             } else {
-                res.status(401).send('Invalid username or password');
+                res.status(401).send('Incorrect password');
             }
         });
     });
