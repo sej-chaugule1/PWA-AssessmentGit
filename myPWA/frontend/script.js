@@ -11,7 +11,7 @@ function loginFunction(){
     loginForm.style.opacity = 1;
     registerForm.style.left = "150%";
     registerForm.style.opacity = 0;
-    wrapper.style.height = "500px";
+    wrapper.style.height = "450px";
     loginTitle.style.top = "50%";
     loginTitle.style.opacity = 1;
     registerTitle.style.top = "50px";
@@ -23,7 +23,7 @@ function registerFunction(){
     loginForm.style.opacity = 0;
     registerForm.style.left = "50%";
     registerForm.style.opacity = 1;
-    wrapper.style.height = "500px";
+    wrapper.style.height = "480px";
     loginTitle.style.top = "-60px";
     loginTitle.style.opacity = 0;
     registerTitle.style.top = "50%";
@@ -81,7 +81,7 @@ signUpBtn.addEventListener("click", function(event) {
     .then(response => {
         if (response.ok) {
             alert("Registration successful!");
-            registerFunction(); // Switch to login view
+            loginFunction(); // Switch to login view
         } else {
             return response.text().then(text => { throw new Error(text); });
         }
@@ -116,5 +116,24 @@ signInBtn.addEventListener("click", function(event) {
     .catch(error => {
         console.error("Login error:", error.message);
         alert("Login failed: " + error.message);
+    });
+});
+
+document.querySelectorAll('.toggle-password').forEach(icon => {
+    icon.style.cursor = "pointer";
+
+    icon.addEventListener('click', () => {
+        const targetId = icon.getAttribute('data-target');
+        const passwordField = document.getElementById(targetId);
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            icon.classList.remove('bx-lock-alt');
+            icon.classList.add('bx-lock-open-alt');
+        } else {
+            passwordField.type = "password";
+            icon.classList.remove('bx-lock-open-alt');
+            icon.classList.add('bx-lock-alt');
+        }
     });
 });
