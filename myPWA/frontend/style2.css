@@ -191,15 +191,6 @@ body {
     font-family: "Tiro Devanagari Marathi", serif;
 }
 
-#preloader {
-  background: rgb(255, 255, 255) url(Preloader.gif) no-repeat center;
-  background-size: 30%;
-  height: 100vh;
-  width: 100%;
-  position: fixed;
-  z-index: 100;
-}
-
 @media (max-width: 1050px) {
     .title {
         font-size: 18px; 
