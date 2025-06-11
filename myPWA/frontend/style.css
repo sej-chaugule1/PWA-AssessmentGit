@@ -225,14 +225,20 @@ body{
 }
 
 /* RESPONSIVE STYLES */
-@media only screen and (max-width: 564px){
+@media only screen and (max-width: 600px){
     .wrapper{
         margin: 20px;
     }
     .logo {
-        top: -10px;
-        left: -30px;
+        margin-top: 10px;
+        margin-left: 20px;
         width: 40vw; 
         max-width: 120px;
+    }
+
+    .brand-name {
+        margin-left: 16px;
+        font-size: 15px;
+        margin-top: 12px;
     }
 }

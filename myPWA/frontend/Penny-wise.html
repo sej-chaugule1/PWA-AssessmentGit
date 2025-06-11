@@ -9,10 +9,14 @@
     <link rel="manifest" href="../manifest.json">
 </head>
 <body>
+    <div id="logout-container">
+    <button id="logout-button" onclick="logout()">Logout</button>
+    </div>
+
     <div id="preloader">
     <img src="Preloader.gif" alt="Loading..." id="preloader-gif">
     </div>
-    
+
     <div class="title">
         <h1>Penny-wise</h1>
     </div>
@@ -72,35 +76,70 @@
   }, 2000);
 });
 
+function logout() {
+  alert("You have been logged out.");
+  window.location.href = "Login.html";
+}
 </script>
 
 <style>
-/* Preloader covers the whole viewport */
 #preloader {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: white; /* or any background color you want */
+  background: white; 
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
   opacity: 1;
-  transition: opacity 0.5s ease; /* Smooth fade out */
+  transition: opacity 0.5s ease; 
 }
 
-/* Hide preloader when finished */
 #preloader.hidden {
   opacity: 0;
-  pointer-events: none; /* So it doesn't block clicks */
+  pointer-events: none; 
 }
 
-/* Style your loader GIF if needed */
 #preloader img {
-  width: 130vh; /* adjust size */
+  width: 130vh;
   height: 130vh;
+}
+
+#logout-container {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 9998;
+}
+
+#logout-button {
+  background-color: #547954;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: 'Times New Roman', serif;
+}
+
+#logout-button:hover {
+  background-color: #476847;
+}
+
+@media screen and (max-width: 360px){
+    .container {
+        margin-left: 110px;
+    }
+    .entries {
+        margin-left: 5px;
+    }
+    .title {
+        margin-left: 80px;
+    }
 }
 
 </style>
