@@ -3,7 +3,7 @@ const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-const bcrypt = require('bcrypt'); //New
+const bcrypt = require('bcrypt');
 const session = require('express-session');
 
 const app = express();
@@ -12,7 +12,7 @@ const port = 3000;
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
-//New
+
 app.use(session({
     secret: 'your-secret-key', // use a strong secret in production
     resave: false,
@@ -190,7 +190,6 @@ app.post('/login', (req, res) => {
         });
     });
 });
-
 
 // Start the server
 app.listen(port, () => {

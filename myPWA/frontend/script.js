@@ -108,7 +108,7 @@ signInBtn.addEventListener("click", function(event) {
     .then(response => {
         if (response.ok) {
             alert("Login successful!");
-            window.location.href = "Penny-wise.html";  // Replace with your actual page
+            window.location.href = "Penny-wise.html";  
         } else {
             return response.text().then(text => { throw new Error(text); });
         }
