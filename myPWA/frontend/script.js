@@ -39,7 +39,6 @@ function validatePassword() {
   const number = document.getElementById("number");
   const special = document.getElementById("special");
 
-  // Helper function
   function updateItem(condition, element) {
     if (condition) {
       element.classList.add("valid");
@@ -54,7 +53,7 @@ function validatePassword() {
   updateItem(/[A-Z]/.test(password), uppercase);
   updateItem(/[a-z]/.test(password), lowercase);
   updateItem(/[0-9]/.test(password), number);
-  updateItem(/[^A-Za-z0-9]/.test(password), special);
+  updateItem(/[!@#$%^&*]/.test(password), special);
 }
 
 signUpBtn.addEventListener("click", function(event) {
@@ -63,7 +62,7 @@ signUpBtn.addEventListener("click", function(event) {
     const username = document.getElementById("reg-name").value;
     const password = document.getElementById("reg-pass").value;
 
-    const criteria = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    const criteria = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
 
     if (!criteria.test(password)) {
         alert("Please meet all the password requirements before signing up.");
