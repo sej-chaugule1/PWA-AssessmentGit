@@ -143,10 +143,12 @@ app.delete('/api/Expense/:id', (req, res) => {
         }
     });
 });
-//New
+
+//Registration page
 app.post('/signup', (req, res) => {
     const { username, password } = req.body;
 
+    //Hashes password in the database using bcrypt
     bcrypt.hash(password, 10, (err, hash) => {
         if (err) {
             console.error('Error hashing password:', err.message);
@@ -163,6 +165,7 @@ app.post('/signup', (req, res) => {
     });
 });
 
+//Login page
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
 

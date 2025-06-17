@@ -6,6 +6,7 @@ const registerTitle = document.querySelector(".title-register");
 const signUpBtn = document.querySelector("#SignUpBtn");
 const signInBtn = document.querySelector("#SignInBtn");
 
+//Toggle to login view
 function loginFunction(){
     loginForm.style.left = "50%";
     loginForm.style.opacity = 1;
@@ -18,6 +19,7 @@ function loginFunction(){
     registerTitle.style.opacity = 0;
 }
 
+//Toggle to login view
 function registerFunction(){
     loginForm.style.left = "-50%";
     loginForm.style.opacity = 0;
@@ -30,15 +32,18 @@ function registerFunction(){
     registerTitle.style.opacity = 1;
 }
 
+// Input validation for password, ensuring it is secure
 function validatePassword() {
   const password = document.getElementById("reg-pass").value;
 
+  //Password criteria feedback elements
   const length = document.getElementById("length");
   const uppercase = document.getElementById("uppercase");
   const lowercase = document.getElementById("lowercase");
   const number = document.getElementById("number");
   const special = document.getElementById("special");
 
+  //Updates user feedback regarding input validation for passwords
   function updateItem(condition, element) {
     if (condition) {
       element.classList.add("valid");
@@ -49,6 +54,7 @@ function validatePassword() {
     }
   }
 
+  //Validation checks
   updateItem(password.length >= 8, length);
   updateItem(/[A-Z]/.test(password), uppercase);
   updateItem(/[a-z]/.test(password), lowercase);
@@ -56,17 +62,19 @@ function validatePassword() {
   updateItem(/[!@#$%^&*]/.test(password), special);
 }
 
+//Registration form submission
 signUpBtn.addEventListener("click", function(event) {
     event.preventDefault();
 
     const username = document.getElementById("reg-name").value;
     const password = document.getElementById("reg-pass").value;
 
+    //Input validation, ensuring password meets all requirements
     const criteria = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
 
     if (!criteria.test(password)) {
         alert("Please meet all the password requirements before signing up.");
-        return;
+        return; // Prevents submission if password does not meet requirements
     }
 
     // Send data to server
@@ -75,7 +83,7 @@ signUpBtn.addEventListener("click", function(event) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ username, password }) //Sanitisation: JSON.stringify escapes data
     })
     .then(response => {
         if (response.ok) {
@@ -92,14 +100,13 @@ signUpBtn.addEventListener("click", function(event) {
 });
 
 const LOCKOUT_DURATION = 5 * 60 * 1000;
-
 let maxAttempts = 3;
 
 const lockoutUntil = localStorage.getItem('lockoutUntil');
 const now = new Date().getTime();
 
 if (lockoutUntil && now < parseInt(lockoutUntil)) {
-    disableLoginForm();
+    disableLoginForm(); //Lockout in effect
 } else {
     localStorage.removeItem('lockoutUntil');
     localStorage.setItem('attemptsLeft', 3);
@@ -109,6 +116,7 @@ if (localStorage.getItem('attemptsLeft') !== null) {
     maxAttempts = parseInt(localStorage.getItem('attemptsLeft'));
 }
 
+//Login form submission
 signInBtn.addEventListener("click", function(event) {
     event.preventDefault();
 
@@ -159,6 +167,7 @@ signInBtn.addEventListener("click", function(event) {
     });
 });
 
+//Login form is disabled after 3 failed attempts
 function disableLoginForm() {
     document.getElementById("log-email").value = "";
     document.getElementById("log-pass").value = "";
@@ -172,6 +181,7 @@ function disableLoginForm() {
     startCountdown();
 }
 
+//5 minute countdown displayed after 3 failed attempts
 function startCountdown() {
     const timerDisplay = document.getElementById("lockout-timer");
     const lockoutEnd = parseInt(localStorage.getItem('lockoutUntil'));
@@ -193,6 +203,7 @@ function startCountdown() {
     }, 1000);
 }
 
+//Enabling form after lockout
 function enableLoginForm() {
     document.getElementById("log-email").disabled = false;
     document.getElementById("log-pass").disabled = false;
@@ -201,6 +212,7 @@ function enableLoginForm() {
     localStorage.removeItem('lockoutUntil');
 }
 
+//Password visability toggle
 document.querySelectorAll('.toggle-password').forEach(icon => {
     icon.style.cursor = "pointer";
 
