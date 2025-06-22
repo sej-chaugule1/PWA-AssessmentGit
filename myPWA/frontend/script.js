@@ -59,7 +59,7 @@ function validatePassword() {
   updateItem(/[A-Z]/.test(password), uppercase);
   updateItem(/[a-z]/.test(password), lowercase);
   updateItem(/[0-9]/.test(password), number);
-  updateItem(/[!@#$%^&*]/.test(password), special);
+  updateItem(/[!@#$%^&*]/.test(password), special); //Sanitisation: only allowing these special characters reduces the risk of SQL injections and XSS
 }
 
 //Registration form submission
@@ -69,7 +69,7 @@ signUpBtn.addEventListener("click", function(event) {
     const username = document.getElementById("reg-name").value;
     const password = document.getElementById("reg-pass").value;
 
-    //Input validation, ensuring password meets all requirements
+    //Input validation: ensuring password meets all requirements
     const criteria = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
 
     if (!criteria.test(password)) {
