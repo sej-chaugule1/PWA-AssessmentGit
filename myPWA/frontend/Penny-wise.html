@@ -11,6 +11,7 @@
 <body>
     <div id="logout-container">
     <button id="logout-button" onclick="logout()">Logout</button>
+    <span id="welcome-message" style="margin-left: 10px;"></span>
     </div>
 
     <div id="preloader">
@@ -69,15 +70,25 @@
         </div>
     </div>
 
-    <script>
-  window.addEventListener("load", function () {
+<script>
+window.addEventListener("load", function () {
   setTimeout(function () {
     document.getElementById("preloader").style.display = "none";
   }, 2000);
+
+  const username = localStorage.getItem('username');
+  const welcomeMessage = document.getElementById('welcome-message');
+
+  if (username) {
+    welcomeMessage.textContent = `Welcome, ${username}!`;
+  } else {
+    welcomeMessage.textContent = 'Welcome!';
+  }
 });
 
 function logout() {
   alert("You have been logged out.");
+  localStorage.removeItem('username');
   window.location.href = "Login.html";
 }
 </script>

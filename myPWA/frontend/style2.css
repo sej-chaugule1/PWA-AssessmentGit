@@ -86,15 +86,15 @@ body {
 
 .submit button {
     grid-column: span 2;
-    padding: 10px; 
-    font-size: 18px;
+    padding: 8px; 
+    font-size: 14px;
     background-color: #547954;
     color: rgb(0, 0, 0);
     border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 18px;
+    margin-top: 23px;
     margin-left: 1px;
     font-size: 18px;
 }
@@ -112,7 +112,6 @@ body {
 
 .entries {
     margin-bottom: 200px;
-
 }
 
 #expenseList {
@@ -178,6 +177,13 @@ body {
 
 .expenseitem1 option {
     font-family: "Tiro Devanagari Marathi", serif;
+}
+
+#welcome-message {
+  font-family: "Tiro Devanagari Marathi", serif;
+  font-size: 19px;
+  color: #3d573d;
+  vertical-align: middle;
 }
 
 @media (max-width: 1050px) {

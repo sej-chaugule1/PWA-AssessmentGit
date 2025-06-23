@@ -142,6 +142,7 @@ signInBtn.addEventListener("click", function(event) {
     .then(response => {
         if (response.ok) {
             alert("Login successful!");
+            localStorage.setItem('username', username);
             localStorage.removeItem('attemptsLeft');
             localStorage.removeItem('lockoutUntil');
             window.location.href = "Penny-wise.html";
