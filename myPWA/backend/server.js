@@ -27,7 +27,6 @@ const db = new sqlite3.Database(dbPath, (err) => {
     } else {
         console.log('Connected to SQLite database');
         // Create Expense table if it doesn't exist
-        //New
         db.run(`CREATE TABLE IF NOT EXISTS Users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE,
@@ -158,7 +157,7 @@ app.post('/signup', (req, res) => {
         db.run(`INSERT INTO Users (username, password) VALUES (?, ?)`, [username, hash], function (err) {
             if (err) {
                 console.error('Error inserting user:', err.message);
-                return res.status(400).send('Username already exists');
+                return res.status(400).send('Username already exists'); //Ensures usernames are not duplicated, every user must have unique usernames for security purposes
             }
             res.status(201).send('User registered successfully');
         });
@@ -179,7 +178,7 @@ app.post('/login', (req, res) => {
             return res.status(401).send('User not found');
         }
 
-        bcrypt.compare(password, user.password, (err, result) => {
+        bcrypt.compare(password, user.password, (err, result) => { //bcrypt used for comparing the password upon logging to ensure it matches with credentials in the database
             if (err) {
                 console.error('Error comparing passwords:', err.message);
                 return res.status(500).send('Error during login');

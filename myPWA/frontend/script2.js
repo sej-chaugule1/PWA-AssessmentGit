@@ -24,7 +24,7 @@ function addExpenseLog(event) {
     if (Category && Amount && Date) {
         if (Category && Amount && Date) {
             if (Amount < 0) {
-                alert('Amount cannot be negative. Please enter a valid number.');
+                alert('Amount cannot be negative. Please enter a valid number.'); //Ensures only positive numbers are inputted for the amount section
                 return;
             }
         }
@@ -50,7 +50,7 @@ function addExpenseLog(event) {
             updateExpenseLog(event); 
         }
     } else {
-        alert('Please fill in all required fields.');
+        alert('Please fill in all required fields.'); //Ensures all fields are filled in, the entries will not be submitted with empty input fields
     }
 }
 

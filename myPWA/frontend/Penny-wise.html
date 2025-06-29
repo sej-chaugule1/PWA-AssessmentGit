@@ -9,6 +9,7 @@
     <link rel="manifest" href="../manifest.json">
 </head>
 <body>
+  <!--Logout button function which takes the user back to the main login/registration page-->
     <div id="logout-container">
     <button id="logout-button" onclick="logout()">Logout</button>
     <span id="welcome-message" style="margin-left: 10px;"></span>
@@ -22,6 +23,7 @@
         <h1>Penny-wise</h1>
     </div>
 
+    <!--Sorting function for users to customise what entries they want to see (can sort from category, date, amount)-->
     <div id="sort-container">
     <label for="SortBy">Sort By:</label>
     <select id="SortBy">
@@ -32,6 +34,7 @@
     </select>
     </div>
 
+    <!--Form to input expense entries, users must fill in input fields for the category, date and amount-->
     <div class="container">
         <form id="expenseForm" class="expenselist" onsubmit="addExpenseLog(event)">
 

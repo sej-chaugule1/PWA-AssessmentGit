@@ -232,3 +232,19 @@ document.querySelectorAll('.toggle-password').forEach(icon => {
         }
     });
 });
+
+// Sanitation: Prevent spaces in username and password fields
+const noSpaceInputs = ["reg-name", "reg-pass", "log-email", "log-pass"];
+
+noSpaceInputs.forEach(id => {
+    const input = document.getElementById(id);
+    input.addEventListener("keydown", function(event) {
+        if (event.key === " ") {
+            event.preventDefault(); // Prevents spaces from being inputted
+        }
+    });
+
+    input.addEventListener("input", function() {
+        this.value = this.value.replace(/\s/g, ""); // Remove pasted spaces
+    });
+});
