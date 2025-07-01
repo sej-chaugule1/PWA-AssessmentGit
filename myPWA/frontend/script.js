@@ -214,21 +214,19 @@ function enableLoginForm() {
 }
 
 //Password visability toggle
-document.querySelectorAll('.toggle-password').forEach(icon => {
-    icon.style.cursor = "pointer";
+document.querySelectorAll('.toggle-password').forEach(toggle => {
+    toggle.addEventListener('click', () => {
+        const inputId = toggle.getAttribute('data-target');
+        const input = document.getElementById(inputId);
 
-    icon.addEventListener('click', () => {
-        const targetId = icon.getAttribute('data-target');
-        const passwordField = document.getElementById(targetId);
-
-        if (passwordField.type === "password") {
-            passwordField.type = "text";
-            icon.classList.remove('bx-lock-alt');
-            icon.classList.add('bx-lock-open-alt');
+        if (input.type === 'password') {
+            input.type = 'text';
+            toggle.classList.remove('bx-hide');
+            toggle.classList.add('bx-show');
         } else {
-            passwordField.type = "password";
-            icon.classList.remove('bx-lock-open-alt');
-            icon.classList.add('bx-lock-alt');
+            input.type = 'password';
+            toggle.classList.remove('bx-show');
+            toggle.classList.add('bx-hide');
         }
     });
 });
