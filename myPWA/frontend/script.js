@@ -97,6 +97,13 @@ signUpBtn.addEventListener("click", function(event) {
         console.error("Signup error:", error.message);
         alert("Signup failed: " + error.message);
     });
+
+    const usernameRegex = /^[a-zA-Z0-9]+$/;
+    if (!usernameRegex.test(username)) {
+    alert("Username can only contain letters and numbers (a-z, A-Z, 0-9).");
+    return;
+}
+
 });
 
 const LOCKOUT_DURATION = 5 * 60 * 1000;
@@ -129,7 +136,7 @@ signInBtn.addEventListener("click", function(event) {
         return;
     }
 
-    const username = document.getElementById("log-email").value;
+    const username = document.getElementById("log-user").value;
     const password = document.getElementById("log-pass").value;
 
     fetch('http://localhost:3000/login', {
@@ -166,13 +173,20 @@ signInBtn.addEventListener("click", function(event) {
     .catch(error => {
         console.error("Login error:", error.message);
     });
+    
+    const usernameRegex = /^[a-zA-Z0-9]+$/;
+    if (!usernameRegex.test(username)) {
+    alert("Username can only contain letters and numbers (a-z, A-Z, 0-9).");
+    return;
+}
+
 });
 
 //Login form is disabled after 3 failed attempts
 function disableLoginForm() {
-    document.getElementById("log-email").value = "";
+    document.getElementById("log-user").value = "";
     document.getElementById("log-pass").value = "";
-    document.getElementById("log-email").disabled = true;
+    document.getElementById("log-user").disabled = true;
     document.getElementById("log-pass").disabled = true;
     signInBtn.disabled = true;
 
@@ -206,7 +220,7 @@ function startCountdown() {
 
 //Enabling form after lockout
 function enableLoginForm() {
-    document.getElementById("log-email").disabled = false;
+    document.getElementById("log-user").disabled = false;
     document.getElementById("log-pass").disabled = false;
     signInBtn.disabled = false;
     localStorage.setItem('attemptsLeft', 3);
@@ -232,7 +246,7 @@ document.querySelectorAll('.toggle-password').forEach(toggle => {
 });
 
 // Sanitation: Prevent spaces in username and password fields
-const noSpaceInputs = ["reg-name", "reg-pass", "log-email", "log-pass"];
+const noSpaceInputs = ["reg-name", "reg-pass", "log-user", "log-pass"];
 
 noSpaceInputs.forEach(id => {
     const input = document.getElementById(id);
@@ -244,5 +258,13 @@ noSpaceInputs.forEach(id => {
 
     input.addEventListener("input", function() {
         this.value = this.value.replace(/\s/g, ""); // Remove pasted spaces
+    });
+});
+
+// Block special characters in usernames (registration and login)
+["reg-name", "log-user"].forEach(id => {
+    const input = document.getElementById(id);
+    input.addEventListener("input", function () {
+        this.value = this.value.replace(/[^a-zA-Z0-9]/g, ""); // Remove non-alphanumeric characters
     });
 });

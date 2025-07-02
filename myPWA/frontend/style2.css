@@ -53,6 +53,7 @@ body {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
     width: 450px;
     max-width: 100%;
+    justify-content: center;
 }
 
 .expenselist label {
@@ -119,7 +120,7 @@ body {
   flex-wrap: wrap;     
   gap: 15px;
   padding: 10px 0;
-  justify-content: flex-start; 
+  justify-content: center; 
   overflow-x: visible; 
 }
 
@@ -190,7 +191,6 @@ body {
     .title {
         font-size: 18px; 
         padding: 10px 0; 
-        width: 730%;
     }
 
     #sort-container {
@@ -221,7 +221,13 @@ body {
         justify-content: center;
         padding: 15px;
         margin-top: 40px;
-        margin-left: 70px;
+        margin-left: 50px;
     }
 
+}
+
+@media (max-width: 380px) {
+    .container {
+        padding-left: 50px;
+    }
 }
